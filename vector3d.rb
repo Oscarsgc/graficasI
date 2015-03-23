@@ -1,5 +1,6 @@
 class Vector3D
-	attr_accessor :x, :y, :z
+
+  attr_accessor :x, :y, :z
 
 	def initialize(pos_x, pos_y, pos_z)
 		@x = pos_x
