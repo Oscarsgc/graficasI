@@ -30,21 +30,12 @@ class RayTracer < Renderer
     if oint.nil?
       color = Colorcito.new(0.0, 0.0, 0.0)
     else
-      #color = oint.diff_color    ---- esto es esferas simples
       p = e.add(d.scalar_product(tmin))
       oint.set_normal(p)
       aux= @light.location.minus(p)
       l = aux.scalar_division(aux.mod)
-      #color = oint.lambertian_shading(@light, l)   --- esto es el ejer 1
+      color_aux1 = oint.diff_color
 
-=begin ejer2
-
-      pre_color = oint.lambertian_shading(@light, l)
-      ambiente_difuso = @environment_color.multi(oint.diff_color.red, oint.diff_color.green, oint.diff_color.blue )
-      color = pre_color.add(ambiente_difuso.red, ambiente_difuso.green, ambiente_difuso.blue)
-=end
-
-      # too esto sirve para el ejer 3
       aux2 = e.minus(p)
       v = aux2.scalar_division(aux2.mod)
       aux3 = v.add(l)
@@ -54,7 +45,18 @@ class RayTracer < Renderer
       ambiente_difuso = @environment_color.multi(oint.diff_color.red, oint.diff_color.green, oint.diff_color.blue )
       color = pre_color.add(ambiente_difuso.red, ambiente_difuso.green, ambiente_difuso.blue)
 
-
+      @objects.each do |object|
+        taux1 =  +1.0/0.0
+        if object != oint
+          if object.instance_of? Sphere
+            t = object.intersect(p, l)
+            if t < taux1
+              taux1 = t
+              color = color_aux1.multi(@environment_color.red, @environment_color.green, @environment_color.blue)
+            end
+          end
+        end
+      end
     end
     {red: color.red, green: color.green, blue: color.blue}
   end
