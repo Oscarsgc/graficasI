@@ -34,12 +34,13 @@ class Vector3D
     y = @y * (1 / variable)
     z = @z * (1 / variable)
     res = Vector3D.new(x, y, z)
+    return res
   end
 
   def scalar_product(variable)
-    x = @x*variable
-    y = @y*variable
-    z = @z*variable
+    x = @x * variable
+    y = @y * variable
+    z = @z * variable
     res = Vector3D.new(x, y, z)
   end
 

@@ -18,17 +18,19 @@ class Objeto
     max = [0, aux].max
     i = light.color.multi(max, max, max)
     kd = @diff_color.multi(i.red, i.green, i.blue)
-
-=begin
-    second_member = @normal.dot_product(l)
-    variable = [0, second_member].max
-    pri = light.color.multi(variable, variable, variable)
-    sec = pri.multi(@diff_color.red, @diff_color.green, @diff_color.blue)
-    color = Colorcito.new(sec.red, sec.green, sec.blue)
-=end
   end
 
-  def blinn_phong_shading()
+  def blinn_phong_shading(light, h, l)
+    #primer miembro
+    first_member = lambertian_shading(light, l)
+
+    aux = @normal.dot_product(h)
+    max = [0, aux].max
+    var = max ** @specular_coef
+    i = light.color.multi(var, var, var)
+    ks = @specular_color.multi(i.red, i.green, i.blue)
+
+    color = first_member.add(ks.red, ks.green, ks.blue)
 
   end
 

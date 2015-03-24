@@ -17,7 +17,8 @@ class Sphere < Objeto
   end
 
   def intersect(e, d)
-    auxiliar = d
+    #auxiliar = d
+    auxiliar = Vector3D.new(0.0, 0.0, 0.0)
     auxiliar.x = -d.x
     auxiliar.y = -d.y
     auxiliar.z = -d.z
