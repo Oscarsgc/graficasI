@@ -10,7 +10,8 @@ class RayTracer < Renderer
     super(width, height, 0.0, 0.0, 0.0)
     @objects = Array.new
     @camera = Camera.new(Vector3D.new(278.0, 273.0, -800.0), Vector3D.new(0.0, 1.0, 0.0), Vector3D.new(278.0, 273.0, -700), 39.31, 0.035, width, height)
-    @light = Luz.new(Vector3D.new(278.0, 547.0, 279.5), Colorcito.new(0.8, 0.7, 0.6))
+    @light = Luz.new(Vector3D.new(78.0, 250.0, 50.5), Colorcito.new(0.8, 0.7, 0.6))
+    #@light = Luz.new(Vector3D.new(278.0, 547.0, 279.5), Colorcito.new(0.8, 0.7, 0.6))
     @environment_color = Colorcito.new(0.2, 0.2, 0.2)
   end
 
@@ -28,7 +29,7 @@ class RayTracer < Renderer
       end
     end
     if oint.nil?
-      color = Colorcito.new(0.0, 0.0, 0.0)
+      color = Colorcito.new( i.to_f / width, j.to_f / height, 1.0)
     else
       p = e.add(d.scalar_product(tmin))
       oint.set_normal(p)
